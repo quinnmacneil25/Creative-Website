@@ -1,44 +1,5 @@
-import { useScrollFilm } from './hooks/useScrollFilm.js';
-import { CHAPTERS } from './data/chapters.js';
-import Preloader from './components/Preloader.jsx';
-import FilmCanvas from './components/FilmCanvas.jsx';
-import Nav from './components/Nav.jsx';
-import Rail from './components/Rail.jsx';
-import Chapter from './components/Chapter.jsx';
-import FooterPanel from './components/FooterPanel.jsx';
+import { useState } from 'react';
+const colors = [['Charcoal','#343d3d'],['Sage','#879878'],['Sky blue','#7fabc6'],['Cream','#d8ccb3'],['Rose','#bc8692'],['Cobalt','#4169b0']];
+function Bag({color}) { return <svg viewBox="0 0 500 600" role="img" aria-label="Concept illustration of the Google-labeled drawstring bag"><defs><linearGradient id="fabric"><stop stopColor={color}/><stop offset="1" stopColor={color} stopOpacity=".75"/></linearGradient><filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="16" floodOpacity=".2"/></filter></defs><g fill="none" stroke="#303936" strokeWidth="7"><path d="M130 105 C52 235 65 385 108 507 L151 131"/><path d="M368 105 C445 235 435 385 392 507 L350 131"/></g><path filter="url(#shadow)" d="M127 110 Q250 86 373 110 L400 500 Q400 535 369 543 Q250 570 130 543 Q98 537 100 500Z" fill="url(#fabric)"/><path d="M127 110 Q250 86 373 110 L400 500 Q400 535 369 543 Q250 570 130 543 Q98 537 100 500Z" fill="url(#fabric)"/><g fill="none" stroke="#ffffff" opacity=".2"><path d="M130 119 Q250 143 370 119 M143 145 L126 505 M355 143 L374 505 M160 144 L177 354 M331 142 L320 303" strokeWidth="3"/></g><text x="250" y="340" textAnchor="middle" fill="white" fontFamily="Arial,sans-serif" fontSize="40" letterSpacing="-2">Google</text></svg> }
+export default function App(){const [selected,setSelected]=useState(0);const [cart,setCart]=useState(false);const [qty,setQty]=useState(1);return <><div className="announcement">A lighter way to do your city days. <span>Meet your everyday extra.</span></div><header><a className="wordmark" href="#home">day / trip<span>●</span></a><nav><a href="#why">Why this bag</a><a href="#city">City ready</a><a href="#shop">Shop the bag</a></nav><a className="nav-cta" href="#shop">Find your color ↗</a></header><main id="home"><section className="hero"><div><p className="eyebrow">● FOR THE CITY. FOR YOUR OFF HOURS.</p><h1>Big plans.<br/>Small bag.<br/><em>Your city.</em></h1><p className="intro">From a study session to a spontaneous afternoon downtown. A Google-labeled drawstring bag for your everyday extras—and everything your day turns into.</p><a className="button" href="#shop">Make it your everyday carry <span>↗</span></a><p className="tags">$5.00 &nbsp; / &nbsp; Six proposed colors &nbsp; / &nbsp; Pull. Pack. Go.</p></div><div className="hero-art"><div className="circle"/><div className="edition">THE EVERYDAY EDIT<br/>01 / NYC</div><Bag color={colors[selected][1]}/><div className="art-label"><span>Google-labeled<br/><b>Drawstring bag</b></span><span>↗</span></div><p className="image-note">Product concept illustration</p></div></section><div className="ticker"><span>LESS TO CARRY</span>✳<span>MORE TO EXPLORE</span>✳<span>YOUR DAY, YOUR WAY</span>✳<span>JUST FIVE DOLLARS</span></div><section className="section" id="why"><div className="section-heading"><p className="eyebrow">01 / YOUR EVERYDAY EXTRA</p><h2>Your schedule is full.<br/>Your bag doesn’t have to be.</h2></div><div className="benefits">{[['↗','From campus to anywhere','For the graduate student whose coffee break becomes an afternoon exploring a new neighborhood. Bring a few essentials and follow your curiosity.'],['⌁','Less fuss. More freedom.','One main space and a simple drawstring closure. Gather your extras, pull it closed, and head for your next stop.'],['✳','A little color. A little cost.','A $5 carry with six proposed shades to match your mood. An approachable extra for days when you want to pack light.']].map(([icon,title,text],i)=><article key={title}><div className="icon">{icon}<small>0{i+1}</small></div><h3>{title}</h3><p>{text}</p></article>)}</div></section><section className="city section" id="city"><div className="map" aria-label="Illustrated New York day-trip itinerary"><div className="streets"/><div className="river"/><span className="pin one">01 · STUDY SESSION</span><span className="pin two">02 · COFFEE STOP</span><span className="pin three">03 · NEW NEIGHBORHOOD</span><b className="map-label">NEW YORK<br/><small>on your terms.</small></b></div><div><p className="eyebrow">02 / OUT OF THE LIBRARY. INTO THE CITY.</p><h2>A little less baggage.<br/><em>A little more possibility.</em></h2><p>Deadlines during the week. Day trips on the weekend. Make room for both with a simple bag for the smaller things you want along.</p><a className="text-link" href="#shop">Meet your day-trip companion ↗</a></div></section><section className="shop section" id="shop"><div className="shop-art"><Bag color={colors[selected][1]}/><p>Color and product visualization · concept only</p></div><div><p className="eyebrow">03 / PICK YOUR CITY COMPANION</p><h2>Google-labeled<br/>drawstring bag.</h2><div className="price">$5.00 <span>Small price. Big-day energy.</span></div><p className="color-name">Proposed color: <b>{colors[selected][0]}</b></p><div className="swatches">{colors.map(([name,color],i)=><button key={name} style={{background:color}} className={selected===i?'selected':''} aria-label={name} aria-pressed={selected===i} onClick={()=>setSelected(i)}/>)}</div><dl><div><dt>Proposed size</dt><dd>14 × 18 in / 35.6 × 45.7 cm</dd></div><div><dt>Closure</dt><dd>Drawstring</dd></div><div><dt>Label</dt><dd>Google</dd></div><div><dt>Material</dt><dd>To be confirmed</dd></div></dl><p className="fit">Picture a paperback, headphones, a small notebook, and a snack. This is packing inspiration; actual fit depends on the final bag and your items.</p><div className="buy"><label>Qty <select value={qty} onChange={e=>setQty(Number(e.target.value))}>{[1,2,3,4,5].map(n=><option key={n}>{n}</option>)}</select></label><button className="button" onClick={()=>setCart(true)}>Add to concept bag <span>↗</span></button></div><p className="fine">Student marketing concept. Size and color range are proposed; seller availability and checkout are not connected.</p></div></section><section className="closing"><p className="eyebrow">NEXT STOP: WHATEVER YOU’RE INTO.</p><h2>Take the day outside.</h2><a className="button light" href="#shop">Find your color ↗</a></section></main><footer><a className="wordmark" href="#home">day / trip<span>●</span></a><p>A student marketing concept for a Google-labeled drawstring bag.<br/>Independent concept; no Google affiliation implied.</p><a href="#home">Back to top ↑</a></footer>{cart&&<div className="overlay" onClick={()=>setCart(false)}><section className="modal" role="dialog" aria-modal="true" aria-labelledby="cart-title" onClick={e=>e.stopPropagation()}><button className="close" autoFocus aria-label="Close" onClick={()=>setCart(false)}>×</button><p className="eyebrow">YOUR CONCEPT BAG</p><h2 id="cart-title">Ready for your<br/>next city day.</h2><p>{qty} × {colors[selected][0]} drawstring bag</p><div className="total">Subtotal <b>${(qty*5).toFixed(2)}</b></div><p className="fine">This is a demonstration. No order has been placed. A seller purchase link is needed to enable real checkout.</p><button className="button" onClick={()=>setCart(false)}>Keep exploring ↗</button></section></div>}</>}
 
-const FRAMES = 240;
-const SECTIONS = 5;
-
-export default function App() {
-  const { canvasRef, loadPct, isReady, section, progress, goTo } = useScrollFilm({
-    frameCount: FRAMES,
-    sections: SECTIONS,
-    stride: 6,
-    ease: 0.16,
-    framePath: (i) => `${import.meta.env.BASE_URL}frames/f_${String(i + 1).padStart(4, '0')}.webp`,
-  });
-
-  /* The scrim follows the copy, so the palace stays unobstructed on the
-     opposite side of the frame. */
-  const side = CHAPTERS[section]?.side ?? 'left';
-
-  return (
-    <>
-      <Preloader pct={loadPct} done={isReady} />
-      <FilmCanvas ref={canvasRef} side={side} />
-      <Nav onGo={goTo} chapters={CHAPTERS} stuck={progress > 0.008} />
-      <Rail chapters={CHAPTERS} active={section} progress={progress} onGo={goTo} />
-
-      <main className="copy">
-        {CHAPTERS.map((c, i) =>
-          c.side === 'footer' ? (
-            <FooterPanel key={c.n} data={c} active={section === i} onGo={goTo} />
-          ) : (
-            <Chapter key={c.n} data={c} active={section === i} />
-          )
-        )}
-      </main>
-    </>
-  );
-}
